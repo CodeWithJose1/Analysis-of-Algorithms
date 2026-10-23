@@ -1,0 +1,36 @@
+Log-log slopes (fit for N >= 256; 2 means N^2, ~1.0-1.1 means N log N):
+  Naive DFT                    slope = 1.983
+  FFT recursive                slope = 1.099
+  FFT iterative (table)        slope = 1.110
+  FFT iterative (recurrence)   slope = 1.124
+
+Hidden constants (median over N >= 256):
+  FFT recursive                c = 7.47 ns per N*log2(N)
+  FFT iterative (recurrence)   c = 2.89 ns per N*log2(N)
+  FFT iterative (table)        c = 3.23 ns per N*log2(N)
+  Naive DFT                    c = 11.93 ns per N^2
+
+Speed-up (naive / iterative FFT, table):
+  N=    16: measured      10.4x   multiplication ratio       8.0x
+  N=    32: measured      18.3x   multiplication ratio      12.8x
+  N=    64: measured      32.6x   multiplication ratio      21.3x
+  N=   128: measured      72.2x   multiplication ratio      36.6x
+  N=   256: measured     119.2x   multiplication ratio      64.0x
+  N=   512: measured     207.9x   multiplication ratio     113.8x
+  N=  1024: measured     381.2x   multiplication ratio     204.8x
+  N=  2048: measured     694.7x   multiplication ratio     372.4x
+  N=  4096: measured    1261.7x   multiplication ratio     682.7x
+  N=  8192: measured    2321.5x   multiplication ratio    1260.3x
+  N= 16384: measured    4326.8x   multiplication ratio    2340.6x
+
+Bluestein vs previous power of two: median slowdown 14.6x (range 13.9x - 15.1x)
+
+Forward error at the largest N measured:
+  Naive DFT                    N=  8192: 3.03e-15
+  FFT recursive                N=  8192: 5.10e-16
+  FFT iterative (table)        N=  8192: 5.10e-16
+  FFT iterative (recurrence)   N=  8192: 2.67e-14
+  Bluestein                    N=  8192: 8.77e-16
+Round-trip error at the largest N measured:
+  FFT iterative (table)        N= 4194304: 6.10e-16
+  FFT iterative (recurrence)   N= 4194304: 6.63e-11
